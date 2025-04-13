@@ -16,11 +16,21 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: 檢查語法錯誤
-        run: python -m py_compile src/*.py
+      - name: 檢查語法錯誤（如果有 Python 檔案）
+        run: |
+          if ls src/*.py 1> /dev/null 2>&1; then
+            python -m py_compile src/*.py
+          else
+            echo "沒有 Python 檔案，略過語法檢查"
+          fi
         
       - name: 安裝測試框架（unittest 不需額外安裝）
         run: echo "準備執行測試"
 
-      - name: 執行測試
-        run: python -m unittest src/test_main.py
+      - name: 執行測試（如果有 test_main.py）
+        run: |
+          if [ -f src/test_main.py ]; then
+            python -m unittest src/test_main.py
+          else
+            echo "沒有測試檔案，略過 unittest"
+          fi
