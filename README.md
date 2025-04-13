@@ -5,4 +5,5 @@ Hello!
 
 hw1-p is a branch try to edit the README.md
 
-REDO.
+hw1-f is a branch try to do add function
+
